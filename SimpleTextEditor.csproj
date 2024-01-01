@@ -18,7 +18,7 @@ Simple Text Editor is still in early stages of development so may contain bugs.<
     <PackageTags>Rich Text Editor, Blazor, Native</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,6 +46,10 @@ Simple Text Editor is still in early stages of development so may contain bugs.<
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

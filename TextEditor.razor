@@ -20,6 +20,10 @@
 		int charCount = block.FormatBlocks.Count();
 		<div @onmouseup="() => FocusAndSetCursorPos(b, charCount - 1)" @onmouseup:stopPropagation="true" @onmouseup:preventDefault="true" class="text-line">
 			<DynamicHtmlTag HtmlTag="block.BlockType">
+				@if (block.FormatBlocks.Count() == 0)
+				{
+					<span style="opacity:0">-</span>
+				}
 				@if (_focused && b == _characterSelection.CursorBlock && _characterSelection.CursorChar == -1)
 				{
 					<div class="text-cursor"></div>
