@@ -1,6 +1,4 @@
 ﻿using SimpleTextEditor.Enums;
-using System.Xml.Linq;
-
 namespace SimpleTextEditor.Models
 {
 	public class TextLine
