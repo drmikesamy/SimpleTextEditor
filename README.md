@@ -2,6 +2,8 @@
 
 Simple Text Editor is a bare-bones rich text editor component for Blazor written completely in C#, with no javascript interop!
 
+Simple Text Editor is still in early stages of development so may contain bugs.
+
 ## Installation
 
 Install via Nuget Package Manager.
