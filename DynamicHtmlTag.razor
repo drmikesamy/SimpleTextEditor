@@ -1,0 +1,30 @@
+﻿@using SimpleTextEditor.Enums;
+
+@switch (HtmlTag)
+{
+	case TextLineTypeEnum.H1:
+		<h1>
+			@ChildContent
+		</h1>
+		break;
+	case TextLineTypeEnum.H2:
+		<h2>
+			@ChildContent
+		</h2>
+		break;
+	case TextLineTypeEnum.P:
+		<p>
+			@ChildContent
+		</p>
+		break;
+}
+
+
+@code {
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+	[Parameter]
+	public string CssClasses { get; set; } = "";
+	[Parameter]
+	public TextLineTypeEnum HtmlTag { get; set; } = TextLineTypeEnum.P;
+}
