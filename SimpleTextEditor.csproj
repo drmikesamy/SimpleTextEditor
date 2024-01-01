@@ -4,7 +4,29 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Title>Simple Text Editor</Title>
+    <Authors>MichaelSamy</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Simple Text Editor is a bare-bones rich text editor component for Blazor written completely in C#, with no javascript interop!
+
+Simple Text Editor is still in early stages of development so may contain bugs.</Description>
+    <Copyright>Copyright 2024 Michael Samy</Copyright>
+    <PackageProjectUrl>https://github.com/drmikesamy/SimpleTextEditor</PackageProjectUrl>
+    <PackageIcon>keyboard.jpg</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/drmikesamy/SimpleTextEditor</RepositoryUrl>
+    <PackageTags>Rich Text Editor, Blazor, Native</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Version>1.1.0</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\Downloads\keyboard.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 
   <ItemGroup>
@@ -13,6 +35,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,42 @@
+.format-button-selected {
+    background-color: grey;
+}
+.text-line {
+    cursor: text;
+}
+.selection-highlight {
+    background-color: greenyellow;
+}
+.text-cursor {
+    display: inline-block;
+    width: 1px;
+    margin-left: -1px;
+    height: 1.3rem;
+    margin-bottom: -0.2rem;
+    background-color: black;
+    animation: cursor-blink 1s steps(1) infinite;
+    opacity: 0;
+}
+
+.rich-text-editor-container {
+    padding: 0.5rem;
+    background-color: white;
+}
+
+@keyframes cursor-blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+p {
+    min-height: 2rem;
+}
