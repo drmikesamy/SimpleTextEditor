@@ -3,12 +3,12 @@
 @using SimpleTextEditor.Enums;
 @using SimpleTextEditor.Models;
 
-<button class="@(bold ? "format-button-selected" : "")" @onclick="@(() => FormatItem(FormatBlockTypeEnum.B))">B</button>
-<button class="@(italic ? "format-button-selected" : "")" @onclick="@(() => FormatItem(FormatBlockTypeEnum.I))"><i>I</i></button>
-<button class="@(underline ? "format-button-selected" : "")" @onclick="@(() => FormatItem(FormatBlockTypeEnum.U))"><u>U</u></button>
-<button class="@(Blocks[_characterSelection.CursorBlock].BlockType == TextLineTypeEnum.H1 ? "format-button-selected" : "")" @onclick="@(() => SetBlockType(TextLineTypeEnum.H1))">H1</button>
-<button class="@(Blocks[_characterSelection.CursorBlock].BlockType == TextLineTypeEnum.H2 ? "format-button-selected" : "")" @onclick="@(() => SetBlockType(TextLineTypeEnum.H2))">H2</button>
-<button class="@(Blocks[_characterSelection.CursorBlock].BlockType == TextLineTypeEnum.P ? "format-button-selected" : "")" @onclick="@(() => SetBlockType(TextLineTypeEnum.P))">P</button>
+<button class="@(bold ? "format-button-selected" : "")" @onclick="@(() => FormatItem(CharacterFormatEnum.B))">B</button>
+<button class="@(italic ? "format-button-selected" : "")" @onclick="@(() => FormatItem(CharacterFormatEnum.I))"><i>I</i></button>
+<button class="@(underline ? "format-button-selected" : "")" @onclick="@(() => FormatItem(CharacterFormatEnum.U))"><u>U</u></button>
+<button class="@(Blocks[_cursorSelectionState.CursorBlock].BlockType == BlockTypeEnum.H1 ? "format-button-selected" : "")" @onclick="@(() => SetBlockType(BlockTypeEnum.H1))">H1</button>
+<button class="@(Blocks[_cursorSelectionState.CursorBlock].BlockType == BlockTypeEnum.H2 ? "format-button-selected" : "")" @onclick="@(() => SetBlockType(BlockTypeEnum.H2))">H2</button>
+<button class="@(Blocks[_cursorSelectionState.CursorBlock].BlockType == BlockTypeEnum.P ? "format-button-selected" : "")" @onclick="@(() => SetBlockType(BlockTypeEnum.P))">P</button>
 <div tabindex="0" style="background-color: white" @onkeydown="KeyDown" @onkeydown:preventDefault="true" @ref="inputBoxRef" class="rich-text-editor-container" @onmousedown:preventDefault @onmouseup="SelectionEnd" @onpointerleave="SelectionEnd" @onmouseup:preventDefault="true" @onblur="LostFocus">
 	@{
 		_blockIndex = 0;
@@ -17,60 +17,60 @@
 	@foreach (var block in Blocks)
 	{
 		int b = _blockIndex;
-		int charCount = block.FormatBlocks.Count();
+		int charCount = block.Characters.Count();
 		<div @onmouseup="() => FocusAndSetCursorPos(b, charCount - 1)" @onmouseup:stopPropagation="true" @onmouseup:preventDefault="true" class="text-line">
 			<DynamicHtmlTag HtmlTag="block.BlockType">
-				@if (block.FormatBlocks.Count() == 0)
+				@if (block.Characters.Count() == 0)
 				{
 					<span style="opacity:0">-</span>
 				}
-				@if (_focused && b == _characterSelection.CursorBlock && _characterSelection.CursorChar == -1)
+				@if (_focused && b == _cursorSelectionState.CursorBlock && _cursorSelectionState.CursorChar == -1)
 				{
 					<div class="text-cursor"></div>
 				}
 				@{
 					int characterIndex = 0;
 				}
-				@foreach (var character in block.FormatBlocks)
+				@foreach (var character in block.Characters)
 				{
 					int i = characterIndex;
-					<span class="text-cursor-shift @(_characterSelection.IsSelected(b, i) ? "selection-highlight" : "")" @onmousedown="() => SelectionStart(b, i-1)" @onmouseenter="() => SelectionAdd(b, i-1)" @onmouseup="SelectionEnd" @onmouseup:stopPropagation="true" @onmousedown:preventDefault="true" @onmouseup:preventDefault="true">
+					<span class="text-cursor-shift @(_cursorSelectionState.IsSelected(b, i) ? "selection-highlight" : "")" @onmousedown="() => SelectionStart(b, i-1)" @onmouseenter="() => SelectionAdd(b, i-1)" @onmouseup="SelectionEnd" @onmouseup:stopPropagation="true" @onmousedown:preventDefault="true" @onmouseup:preventDefault="true">
 						@if (string.IsNullOrEmpty(character.Content) || character.Content == " ")
 						{
 							<span style="opacity:0">-</span>
 						}
 						else
 						{
-							@switch (Blocks[b].FormatBlocks[i].Format)
+							@switch (Blocks[b].Characters[i].Format)
 							{
-								case FormatBlockTypeEnum.None:
+								case CharacterFormatEnum.None:
 									@character.Content
 									break;
-								case FormatBlockTypeEnum.I:
+								case CharacterFormatEnum.I:
 									<i>@character.Content</i>
 									break;
-								case FormatBlockTypeEnum.B:
+								case CharacterFormatEnum.B:
 									<b>@character.Content</b>
 									break;
-								case FormatBlockTypeEnum.U:
+								case CharacterFormatEnum.U:
 									<u>@character.Content</u>
 									break;
-								case FormatBlockTypeEnum.I | FormatBlockTypeEnum.U:
+								case CharacterFormatEnum.I | CharacterFormatEnum.U:
 									<i><u>@character.Content</u></i>
 									break;
-								case FormatBlockTypeEnum.B | FormatBlockTypeEnum.U:
+								case CharacterFormatEnum.B | CharacterFormatEnum.U:
 									<b><u>@character.Content</u></b>
 									break;
-								case FormatBlockTypeEnum.I | FormatBlockTypeEnum.B:
+								case CharacterFormatEnum.I | CharacterFormatEnum.B:
 									<i><b>@character.Content</b></i>
 									break;
-								case FormatBlockTypeEnum.I | FormatBlockTypeEnum.B | FormatBlockTypeEnum.U:
+								case CharacterFormatEnum.I | CharacterFormatEnum.B | CharacterFormatEnum.U:
 									<i><b><u>@character.Content</u></b></i>
 									break;
 							}
 						}
 					</span>
-					if (_focused && b == _characterSelection.CursorBlock && i == _characterSelection.CursorChar)
+					if (_focused && b == _cursorSelectionState.CursorBlock && i == _cursorSelectionState.CursorChar)
 					{
 						<div class="text-cursor"></div>
 					}
@@ -84,295 +84,3 @@
 		}
 	}
 </div>
-
-@code {
-	[Parameter]
-	public string JsonContent { get; set; } = "";
-	[Parameter]
-	public EventCallback<string> JsonContentChanged { get; set; }
-	public string Html { get; set; } = "";
-	public List<Block> Blocks { get; set; }
-	private int _blockIndex { get; set; }
-	private ElementReference inputBoxRef { get; set; }
-	private bool isMouseDown { get; set; } = false;
-	public List<FormatBlock> ContentArray { get; set; }
-	private CharacterSelection _characterSelection { get; set; }
-	private CharacterSelection _lastCharacterSelection { get; set; }
-	private string _alphaNumericCharacterPattern = "^[a-zA-Z0-9.,@£$%!?&*^()\\[\\]\\/{} ]$";
-	private bool _focused = false;
-	private bool bold { get; set; } = false;
-	private bool underline { get; set; } = false;
-	private bool italic { get; set; } = false;
-
-	protected override async Task OnInitializedAsync()
-	{
-		if (!string.IsNullOrEmpty(JsonContent))
-		{
-			try
-			{
-				Blocks = JsonSerializer.Deserialize<List<Block>>(JsonContent);
-			}
-			catch
-			{
-				Blocks = new List<Block> { new Block { FormatBlocks = new List<FormatBlock>() } };
-			}
-		}
-		_characterSelection = new CharacterSelection();
-		_characterSelection.SetCursorPos(0, Blocks[0].FormatBlocks.Count() - 1);
-
-	}
-	private void FocusAndSetCursorPos(int blockIndex, int charIndex)
-	{
-		Focus();
-		_characterSelection.SetCursorPos(blockIndex, charIndex);
-	}
-	private async Task KeyDown(KeyboardEventArgs e)
-	{
-		switch (true)
-		{
-			case bool _ when Regex.IsMatch(e.Key, _alphaNumericCharacterPattern):
-				DeleteSelection();
-				var blockObj = Blocks[_characterSelection.CursorBlock];
-				var charObj = new FormatBlock(e.Key);
-				blockObj.FormatBlocks.Insert(_characterSelection.CursorChar + 1, charObj);
-				_characterSelection.SetCursorPos(Blocks.IndexOf(blockObj), blockObj.FormatBlocks.IndexOf(charObj));
-				break;
-			case bool _ when e.Key == "Enter":
-				DeleteSelection();
-				var newBlock = new Block();
-				Blocks.Insert(_characterSelection.StartBlock + 1, newBlock);
-				var charsToMove = Blocks[_characterSelection.StartBlock].FormatBlocks.Where(fb => Blocks[_characterSelection.StartBlock].FormatBlocks.IndexOf(fb) > _characterSelection.StartChar);
-				Blocks[_characterSelection.StartBlock + 1].FormatBlocks.AddRange(charsToMove);
-				Blocks[_characterSelection.StartBlock].FormatBlocks.RemoveAll(fb => charsToMove.Contains(fb));
-				_characterSelection.SetCursorPos(_characterSelection.StartBlock + 1, -1);
-				break;
-			case bool _ when e.Key == "Backspace":
-				if (_characterSelection.NoActiveSelection)
-				{
-					if (_characterSelection.CursorChar < 0)
-					{
-						if (_characterSelection.CursorBlock > 0)
-						{
-							var currentBlockChars = Blocks[_characterSelection.CursorBlock].FormatBlocks;
-							Blocks.Remove(Blocks[_characterSelection.CursorBlock]);
-							_characterSelection.SetCursorPos(_characterSelection.CursorBlock - 1, Blocks[_characterSelection.CursorBlock - 1].FormatBlocks.Count() - 1);
-							Blocks[_characterSelection.CursorBlock].FormatBlocks.AddRange(currentBlockChars);
-						}
-						break;
-					}
-					_characterSelection.StartBlock = _characterSelection.CursorBlock;
-					_characterSelection.StartChar = _characterSelection.CursorChar - 1;
-				}
-
-				DeleteSelection();
-				break;
-			case bool _ when e.Key == "ArrowLeft":
-				if (_characterSelection.CursorChar < 0)
-				{
-					if (_characterSelection.CursorBlock > 0)
-					{
-						_characterSelection.SetCursorPos(_characterSelection.CursorBlock - 1, Blocks[_characterSelection.CursorBlock - 1].FormatBlocks.Count() - 1);
-					}
-					break;
-				}
-				_characterSelection.SetCursorPos(_characterSelection.CursorBlock, _characterSelection.CursorChar - 1);
-				break;
-			case bool _ when e.Key == "ArrowRight":
-				if (_characterSelection.CursorChar == Blocks[_characterSelection.CursorBlock].FormatBlocks.Count() - 1)
-				{
-					if (_characterSelection.CursorBlock < Blocks.Count() - 1)
-					{
-						_characterSelection.SetCursorPos(_characterSelection.CursorBlock + 1, -1);
-					}
-					break;
-				}
-				_characterSelection.SetCursorPos(_characterSelection.CursorBlock, _characterSelection.CursorChar + 1);
-				break;
-		}
-		StateHasChanged();
-		OnJsonContentChanged();
-	}
-
-	private void DeleteSelection()
-	{
-		if (_characterSelection.StartBlock < _characterSelection.EndBlock)
-		{
-			Blocks[_characterSelection.StartBlock].FormatBlocks.RemoveRange(_characterSelection.StartChar + 1, Blocks[_characterSelection.StartBlock].FormatBlocks.Count() - _characterSelection.StartChar - 1);
-			Blocks[_characterSelection.StartBlock].FormatBlocks.AddRange(Blocks[_characterSelection.EndBlock].FormatBlocks.TakeLast(Blocks[_characterSelection.EndBlock].FormatBlocks.Count() - _characterSelection.EndChar - 1));
-			var blocksToRemove = new List<Block>();
-			for (var i = _characterSelection.StartBlock + 1; i <= _characterSelection.EndBlock; i++)
-			{
-				blocksToRemove.Add(Blocks[i]);
-			}
-			Blocks.RemoveAll(b => blocksToRemove.Contains(b));
-		}
-		else
-		{
-			Blocks[_characterSelection.StartBlock].FormatBlocks.RemoveRange(_characterSelection.StartChar + 1, _characterSelection.EndChar - _characterSelection.StartChar);
-		}
-		_characterSelection.SetCursorPos(_characterSelection.StartBlock, _characterSelection.StartChar);
-
-	}
-
-	private async Task SelectionStart(int block, int index)
-	{
-		Console.WriteLine($"Selection Start | CursorBlock: {_characterSelection.CursorBlock}, CursorChar: {_characterSelection.CursorChar}");
-		Focus();
-		isMouseDown = true;
-		_characterSelection.SetCursorPos(block, index);
-	}
-	private async Task SelectionAdd(int block, int index)
-	{
-		Console.WriteLine($"Selection Add | CursorBlock: {_characterSelection.CursorBlock}, CursorChar: {_characterSelection.CursorChar}");
-		if (isMouseDown)
-		{
-			_characterSelection.CursorBlock = block;
-			_characterSelection.CursorChar = index;
-		}
-	}
-	public void SelectionEnd()
-	{
-		Console.WriteLine($"Selection End | CursorBlock: {_characterSelection.CursorBlock}, CursorChar: {_characterSelection.CursorChar}");
-		if (isMouseDown)
-		{
-			UpdateFormatButtons();
-		}
-		isMouseDown = false;
-	}
-	public void Focus()
-	{
-		inputBoxRef.FocusAsync();
-		_focused = true;
-	}
-	public void LostFocus()
-	{
-		Console.WriteLine($"LostFocus | Block Index: {_blockIndex} CursorBlock: {_characterSelection.CursorBlock}, CursorChar: {_characterSelection.CursorChar}");
-		_focused = false;
-		_lastCharacterSelection = JsonSerializer.Deserialize<CharacterSelection>(JsonSerializer.Serialize(_characterSelection));
-		_characterSelection.SetCursorPos(_blockIndex, 0);
-	}
-	private void UpdateFormatButtons()
-	{
-		bold = SelectionFormatContains(FormatBlockTypeEnum.B);
-		italic = SelectionFormatContains(FormatBlockTypeEnum.I);
-		underline = SelectionFormatContains(FormatBlockTypeEnum.U);
-	}
-
-	private bool SelectionFormatContains(FormatBlockTypeEnum formatFlag)
-	{
-		Console.WriteLine($"CursorBlock: {_characterSelection.CursorBlock}, CursorChar: {_characterSelection.CursorChar}");
-		Console.WriteLine($"Block: {_characterSelection.StartBlock}, Char: {_characterSelection.StartChar}");
-		var firstSelectedBlock = Blocks[_characterSelection.StartBlock].FormatBlocks[_characterSelection.StartChar];
-		if (firstSelectedBlock == null)
-			return false;
-		return (firstSelectedBlock.Format & formatFlag) != 0;
-	}
-
-	private void FormatItem(FormatBlockTypeEnum formatFlag)
-	{
-		Focus();
-		_characterSelection = JsonSerializer.Deserialize<CharacterSelection>(JsonSerializer.Serialize(_lastCharacterSelection));
-		var flagAdded = false;
-		for (var i = _characterSelection.StartBlock; i <= _characterSelection.EndBlock; i++)
-		{
-			var startChar = i == _characterSelection.StartBlock ? _characterSelection.StartChar : 0;
-			var endChar = i == _characterSelection.EndBlock ? _characterSelection.EndChar : Blocks[i].FormatBlocks.Count() - 1;
-
-			for (var j = startChar; j <= endChar; j++)
-			{
-				if (i == _characterSelection.StartBlock && j == _characterSelection.StartChar)
-				{
-					if ((Blocks[i].FormatBlocks[j].Format & formatFlag) == 0)
-					{
-						flagAdded = true;
-					}
-					else
-					{
-						flagAdded = false;
-					}
-				}
-				else
-				{
-					if (flagAdded)
-					{
-						Blocks[i].FormatBlocks[j].Format |= formatFlag;
-					}
-					else
-					{
-						Blocks[i].FormatBlocks[j].Format &= ~formatFlag;
-					}
-				}
-			}
-		}
-		StateHasChanged();
-		OnJsonContentChanged();
-	}
-
-	private void SetBlockType(TextLineTypeEnum blockType)
-	{
-		Focus();
-		_characterSelection = JsonSerializer.Deserialize<CharacterSelection>(JsonSerializer.Serialize(_lastCharacterSelection));
-		Blocks[_characterSelection.CursorBlock].BlockType = blockType;
-		StateHasChanged();
-		OnJsonContentChanged();
-	}
-
-	private void OnJsonContentChanged()
-	{
-		JsonContent = JsonSerializer.Serialize(Blocks);
-		JsonContentChanged.InvokeAsync(JsonContent);
-	}
-
-	private void ConvertToHtml()
-	{
-		Html = "";
-		foreach (var block in Blocks)
-		{
-			Html += $"<{block.BlockType.ToString().ToLower()}>";
-			FormatBlockTypeEnum lastFormat = FormatBlockTypeEnum.None;
-
-			var placeHolderFormatBlock = new FormatBlock("*");
-			block.FormatBlocks.Add(placeHolderFormatBlock);
-
-			foreach (var character in block.FormatBlocks)
-			{
-
-				if ((lastFormat & FormatBlockTypeEnum.I) == 0 && (character.Format & FormatBlockTypeEnum.I) != 0)
-				{
-					Html += $"<i>";
-				}
-				if ((lastFormat & FormatBlockTypeEnum.U) == 0 && (character.Format & FormatBlockTypeEnum.U) != 0)
-				{
-					Html += $"<u>";
-				}
-				if ((lastFormat & FormatBlockTypeEnum.B) == 0 && (character.Format & FormatBlockTypeEnum.B) != 0)
-				{
-					Html += $"<b>";
-				}
-				if ((lastFormat & FormatBlockTypeEnum.B) != 0 && ((character.Format & FormatBlockTypeEnum.B) == 0))
-				{
-					Html += $"</b>";
-				}
-				if ((lastFormat & FormatBlockTypeEnum.U) != 0 && ((character.Format & FormatBlockTypeEnum.U) == 0))
-				{
-					Html += $"</u>";
-				}
-				if ((lastFormat & FormatBlockTypeEnum.I) != 0 && ((character.Format & FormatBlockTypeEnum.I) == 0))
-				{
-					Html += $"</i>";
-				}
-
-				if (character != placeHolderFormatBlock)
-				{
-					Html += $"{character.Content}";
-				}
-
-				lastFormat = character.Format;
-			}
-
-			block.FormatBlocks.Remove(placeHolderFormatBlock);
-
-			Html += $"</{block.BlockType.ToString().ToLower()}>";
-		}
-	}
-}

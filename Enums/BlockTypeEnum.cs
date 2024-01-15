@@ -1,6 +1,6 @@
 ﻿namespace SimpleTextEditor.Enums
 {
-    public enum TextLineTypeEnum
+    public enum BlockTypeEnum
     {
         H1 = 0, 
         H2 = 1, 

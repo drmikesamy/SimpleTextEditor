@@ -1,27 +1,7 @@
 ﻿using SimpleTextEditor.Enums;
 namespace SimpleTextEditor.Models
 {
-	public class TextLine
-	{
-		public string Content { get; set; } = "Your text here";
-		public List<TextLine> ChildTextLines { get; set; } = new List<TextLine>();
-		public TextLineTypeEnum TextLineType { get; set; } = TextLineTypeEnum.P;
-	}
-	public class FormatBlock
-	{
-		public FormatBlock(string character)
-		{
-			Content = character;
-		}
-		public string Content { get; set; } = "";
-		public FormatBlockTypeEnum Format { get; set; } = FormatBlockTypeEnum.None;
-	}
-	public class Block
-	{
-		public List<FormatBlock> FormatBlocks { get; set; } = new List<FormatBlock> { new FormatBlock("") };
-		public TextLineTypeEnum BlockType { get; set; } = TextLineTypeEnum.P;
-	}
-	public class CharacterSelection
+	public class CursorSelectionState
 	{
 		private int _cursorBlock;
 		private int _cursorChar;

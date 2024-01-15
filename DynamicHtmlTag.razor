@@ -1,17 +1,17 @@
 ﻿@using SimpleTextEditor.Enums
 @switch (HtmlTag)
 {
-	case TextLineTypeEnum.H1:
+	case BlockTypeEnum.H1:
 		<h1>
 			@ChildContent
 		</h1>
 		break;
-	case TextLineTypeEnum.H2:
+	case BlockTypeEnum.H2:
 		<h2>
 			@ChildContent
 		</h2>
 		break;
-	case TextLineTypeEnum.P:
+	case BlockTypeEnum.P:
 		<p>
 			@ChildContent
 		</p>
@@ -25,5 +25,5 @@
 	[Parameter]
 	public string CssClasses { get; set; } = "";
 	[Parameter]
-	public TextLineTypeEnum HtmlTag { get; set; } = TextLineTypeEnum.P;
+	public BlockTypeEnum HtmlTag { get; set; } = BlockTypeEnum.P;
 }

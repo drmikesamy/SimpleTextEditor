@@ -1,7 +1,7 @@
 ﻿namespace SimpleTextEditor.Enums
 {
     [Flags]
-    public enum FormatBlockTypeEnum : short
+    public enum CharacterFormatEnum : short
     {
         None = 0,
         B = 1,
