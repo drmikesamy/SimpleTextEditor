@@ -1,6 +1,8 @@
 # Simple Text Editor
 
-Simple Text Editor is a bare-bones rich text editor component for Blazor written completely in C#, with no javascript interop!
+Simple Text Editor is a bare-bones text editor component for Blazor written completely in C#, with no javascript interop!
+
+It allows for basic formatting and setting block paragraph types.
 
 Simple Text Editor is still in early stages of development so may contain bugs.
 
@@ -19,11 +21,23 @@ Make sure that in your index.html or app.razor file (for Blazor Web Apps) has a 
 
 ```cs
 @using SimpleTextEditor;
-<TextEditor @bind-JsonContent="Content"></TextEditor>
+<TextEditor @bind-Blocks="Content"></TextEditor>
 @code{
-public string Content { get; set; }
+public List<SimpleTextBlock> Content { get; set; }
 }
 ```
+
+## Use
+
+The text editor will populate List of objects of type SimpleTextBlock. Think of SimpleTextBlocks as paragraphs. 
+
+Each SimpleTextBlock contains a BlockType field of type `List<SimpleTextCharacter>`, and a BlockType, which specifies the paragraph formatting (e.g. H1, H2, P). 
+
+Each SimpleTextCharacter has a Content field specifying the character, and a Format field (i.e. Underline, Bold, Italic).
+
+This `List<SimpleTextBlock>` object will be populated in realtime as the text is edited and formatted.
+
+To extract your HTML or JSON, simply use the provided extension methods .ToHtml() or .ToJson() at the end of the list object variable.
 
 ## Contributing
 
