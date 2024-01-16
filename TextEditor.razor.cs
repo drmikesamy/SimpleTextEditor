@@ -27,7 +27,6 @@ namespace SimpleTextEditor
 
 		protected override void OnInitialized()
 		{
-			Blocks = new List<SimpleTextBlock> { new SimpleTextBlock() };
 			_cursorSelectionState = new CursorSelectionState();
 			_cursorSelectionState.SetCursorPos(0, Blocks[0].Characters.Count() - 1);
 		}
