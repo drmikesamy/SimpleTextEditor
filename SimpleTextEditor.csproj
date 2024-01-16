@@ -7,7 +7,9 @@
     <Title>Simple Text Editor</Title>
     <Authors>MichaelSamy</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Description>Simple Text Editor is a bare-bones rich text editor component for Blazor written completely in C#, with no javascript interop!
+    <Description>Simple Text Editor is a bare-bones text editor component for Blazor written completely in C#, with no javascript interop!
+
+It allows for basic formatting and setting block paragraph types.
 
 Simple Text Editor is still in early stages of development so may contain bugs.</Description>
     <Copyright>Copyright 2024 Michael Samy</Copyright>
@@ -18,7 +20,7 @@ Simple Text Editor is still in early stages of development so may contain bugs.<
     <PackageTags>Rich Text Editor, Blazor, Native</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>1.3.4</Version>
+    <Version>1.3.5</Version>
   </PropertyGroup>
 
   <ItemGroup>

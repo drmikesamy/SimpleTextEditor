@@ -10,7 +10,7 @@ Simple Text Editor is still in early stages of development so may contain bugs.
 
 ## Installation
 
-[![NuGet Pre Release](https://img.shields.io/badge/nuget-1.2.0-orange.svg)](https://www.nuget.org/packages/SimpleTextEditor)
+[![NuGet Pre Release](https://img.shields.io/badge/nuget-1.3.5-orange.svg)](https://www.nuget.org/packages/SimpleTextEditor)
 Install via Nuget Package Manager.
 
 ## Setup
