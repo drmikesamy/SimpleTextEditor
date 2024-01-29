@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTextEditor", "SimpleTextEditor.csproj", "{DB75162A-7ABE-4BBE-B3BC-A277BDC382CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTextEditor.Examples", "..\SimpleTextEditor.Examples\SimpleTextEditor.Examples.csproj", "{9FA610C5-7465-48C3-BDAC-5A405FB4AD3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DB75162A-7ABE-4BBE-B3BC-A277BDC382CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB75162A-7ABE-4BBE-B3BC-A277BDC382CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB75162A-7ABE-4BBE-B3BC-A277BDC382CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FA610C5-7465-48C3-BDAC-5A405FB4AD3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA610C5-7465-48C3-BDAC-5A405FB4AD3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA610C5-7465-48C3-BDAC-5A405FB4AD3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA610C5-7465-48C3-BDAC-5A405FB4AD3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

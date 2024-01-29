@@ -76,6 +76,7 @@
 					}
 					characterIndex++;
 				}
+				<span style="opacity:0" class="text-cursor-shift @(_cursorSelectionState.IsSelected(b, Blocks[b].Characters.Count() - 1) ? "selection-highlight" : "")" @onmousedown="() => SelectionStart(b, Blocks[b].Characters.Count() - 1)" @onmouseenter="() => SelectionAdd(b, Blocks[b].Characters.Count() - 1)" @onmouseup="SelectionEnd" @onmouseup:stopPropagation="true" @onmousedown:preventDefault="true" @onmouseup:preventDefault="true">-</span>
 			</DynamicHtmlTag>
 		</div>
 		@if (b < blockCount - 1)
