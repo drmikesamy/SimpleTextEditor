@@ -34,6 +34,7 @@ namespace SimpleTextEditor
 		{
 			Focus();
 			_cursorSelectionState.SetCursorPos(blockIndex, charIndex);
+			isMouseDown = false;
 		}
 		private async Task KeyDown(KeyboardEventArgs e)
 		{
@@ -158,6 +159,7 @@ namespace SimpleTextEditor
 			_focused = false;
 			_lastCharacterSelection = JsonSerializer.Deserialize<CursorSelectionState>(JsonSerializer.Serialize(_cursorSelectionState));
 			_cursorSelectionState.SetCursorPos(_blockIndex, 0);
+			isMouseDown = false;
 		}
 		private void UpdateFormatButtons()
 		{
@@ -170,7 +172,12 @@ namespace SimpleTextEditor
 		{
 			Console.WriteLine($"CursorBlock: {_cursorSelectionState.CursorBlock}, CursorChar: {_cursorSelectionState.CursorChar}");
 			Console.WriteLine($"Block: {_cursorSelectionState.StartBlock}, Char: {_cursorSelectionState.StartChar}");
-			var firstSelectedBlock = Blocks[_cursorSelectionState.StartBlock].Characters[_cursorSelectionState.StartChar];
+			if(Blocks[_cursorSelectionState.StartBlock].Characters.Count() == 0)
+			{
+				return false;
+			}
+			var startChar = _cursorSelectionState.StartChar < 0 ? 0 : _cursorSelectionState.StartChar;
+			var firstSelectedBlock = Blocks[_cursorSelectionState.StartBlock].Characters[startChar];
 			if (firstSelectedBlock == null)
 				return false;
 			return (firstSelectedBlock.Format & formatFlag) != 0;

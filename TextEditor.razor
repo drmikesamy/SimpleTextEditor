@@ -20,10 +20,6 @@
 		int charCount = block.Characters.Count();
 		<div @onmouseup="() => FocusAndSetCursorPos(b, charCount - 1)" @onmouseup:stopPropagation="true" @onmouseup:preventDefault="true" class="text-line">
 			<DynamicHtmlTag HtmlTag="block.BlockType">
-				@if (block.Characters.Count() == 0)
-				{
-					<span style="opacity:0">-</span>
-				}
 				@if (_focused && b == _cursorSelectionState.CursorBlock && _cursorSelectionState.CursorChar == -1)
 				{
 					<div class="text-cursor"></div>
@@ -34,40 +30,34 @@
 				@foreach (var character in block.Characters)
 				{
 					int i = characterIndex;
+
 					<span class="text-cursor-shift @(_cursorSelectionState.IsSelected(b, i) ? "selection-highlight" : "")" @onmousedown="() => SelectionStart(b, i-1)" @onmouseenter="() => SelectionAdd(b, i-1)" @onmouseup="SelectionEnd" @onmouseup:stopPropagation="true" @onmousedown:preventDefault="true" @onmouseup:preventDefault="true">
-						@if (string.IsNullOrEmpty(character.Content) || character.Content == " ")
+						@switch (Blocks[b].Characters[i].Format)
 						{
-							<span style="opacity:0">-</span>
-						}
-						else
-						{
-							@switch (Blocks[b].Characters[i].Format)
-							{
-								case CharacterFormatEnum.None:
-									@character.Content
-									break;
-								case CharacterFormatEnum.I:
-									<i>@character.Content</i>
-									break;
-								case CharacterFormatEnum.B:
-									<b>@character.Content</b>
-									break;
-								case CharacterFormatEnum.U:
-									<u>@character.Content</u>
-									break;
-								case CharacterFormatEnum.I | CharacterFormatEnum.U:
-									<i><u>@character.Content</u></i>
-									break;
-								case CharacterFormatEnum.B | CharacterFormatEnum.U:
-									<b><u>@character.Content</u></b>
-									break;
-								case CharacterFormatEnum.I | CharacterFormatEnum.B:
-									<i><b>@character.Content</b></i>
-									break;
-								case CharacterFormatEnum.I | CharacterFormatEnum.B | CharacterFormatEnum.U:
-									<i><b><u>@character.Content</u></b></i>
-									break;
-							}
+							case CharacterFormatEnum.None:
+								@character.Content
+								break;
+							case CharacterFormatEnum.I:
+								<i>@character.Content</i>
+								break;
+							case CharacterFormatEnum.B:
+								<b>@character.Content</b>
+								break;
+							case CharacterFormatEnum.U:
+								<u>@character.Content</u>
+								break;
+							case CharacterFormatEnum.I | CharacterFormatEnum.U:
+								<i><u>@character.Content</u></i>
+								break;
+							case CharacterFormatEnum.B | CharacterFormatEnum.U:
+								<b><u>@character.Content</u></b>
+								break;
+							case CharacterFormatEnum.I | CharacterFormatEnum.B:
+								<i><b>@character.Content</b></i>
+								break;
+							case CharacterFormatEnum.I | CharacterFormatEnum.B | CharacterFormatEnum.U:
+								<i><b><u>@character.Content</u></b></i>
+								break;
 						}
 					</span>
 					if (_focused && b == _cursorSelectionState.CursorBlock && i == _cursorSelectionState.CursorChar)
@@ -76,7 +66,7 @@
 					}
 					characterIndex++;
 				}
-				<span style="opacity:0" class="text-cursor-shift @(_cursorSelectionState.IsSelected(b, Blocks[b].Characters.Count() - 1) ? "selection-highlight" : "")" @onmousedown="() => SelectionStart(b, Blocks[b].Characters.Count() - 1)" @onmouseenter="() => SelectionAdd(b, Blocks[b].Characters.Count() - 1)" @onmouseup="SelectionEnd" @onmouseup:stopPropagation="true" @onmousedown:preventDefault="true" @onmouseup:preventDefault="true">-</span>
+				<span class="text-cursor-shift @(_cursorSelectionState.IsSelected(b, Blocks[b].Characters.Count() - 1) ? "selection-highlight" : "")" @onmousedown="() => SelectionStart(b, Blocks[b].Characters.Count() - 1)" @onmouseenter="() => SelectionAdd(b, Blocks[b].Characters.Count() - 1)" @onmouseup="SelectionEnd" @onmouseup:stopPropagation="true" @onmousedown:preventDefault="true" @onmouseup:preventDefault="true">&nbsp;</span>
 			</DynamicHtmlTag>
 		</div>
 		@if (b < blockCount - 1)
@@ -85,3 +75,4 @@
 		}
 	}
 </div>
+@isMouseDown
