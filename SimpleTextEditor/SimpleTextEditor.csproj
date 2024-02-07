@@ -24,10 +24,11 @@ Simple Text Editor is still in early stages of development so may contain bugs.<
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\Downloads\keyboard.jpg">
+    <EmbeddedResource Include="wwwroot\images\keyboard.jpg">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 
@@ -48,10 +49,6 @@ Simple Text Editor is still in early stages of development so may contain bugs.<
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

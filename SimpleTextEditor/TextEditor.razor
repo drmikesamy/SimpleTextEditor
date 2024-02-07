@@ -9,7 +9,7 @@
 <button class="@(Blocks[_cursorSelectionState.CursorBlock].BlockType == BlockTypeEnum.H1 ? "format-button-selected" : "")" @onclick="@(() => SetBlockType(BlockTypeEnum.H1))">H1</button>
 <button class="@(Blocks[_cursorSelectionState.CursorBlock].BlockType == BlockTypeEnum.H2 ? "format-button-selected" : "")" @onclick="@(() => SetBlockType(BlockTypeEnum.H2))">H2</button>
 <button class="@(Blocks[_cursorSelectionState.CursorBlock].BlockType == BlockTypeEnum.P ? "format-button-selected" : "")" @onclick="@(() => SetBlockType(BlockTypeEnum.P))">P</button>
-<div tabindex="0" style="background-color: white" @onkeydown="KeyDown" @onkeydown:preventDefault="true" @ref="inputBoxRef" class="rich-text-editor-container" @onmousedown:preventDefault @onmouseup="SelectionEnd" @onpointerleave="SelectionEnd" @onmouseup:preventDefault="true" @onblur="LostFocus">
+<div tabindex="0" @onkeydown="KeyDown" @onkeydown:preventDefault="true" @ref="inputBoxRef" class="rich-text-editor-container" @onmousedown:preventDefault @onmouseup="SelectionEnd" @onpointerleave="SelectionEnd" @onmouseup:preventDefault="true" @onblur="LostFocus">
 	@{
 		_blockIndex = 0;
 		int blockCount = Blocks.Count();
@@ -75,4 +75,3 @@
 		}
 	}
 </div>
-@isMouseDown

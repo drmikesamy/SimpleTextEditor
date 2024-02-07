@@ -21,6 +21,9 @@
 .rich-text-editor-container {
     padding: 0.5rem;
     background-color: white;
+    border: 1px solid #ccc;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 @keyframes cursor-blink {

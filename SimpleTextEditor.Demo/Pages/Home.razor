@@ -1,0 +1,8 @@
+﻿@page "/"
+@using SimpleTextEditor;
+@using SimpleTextEditor.Models
+
+<TextEditor @bind-Blocks="Content"></TextEditor>
+@code{
+public List<SimpleTextBlock> Content { get; set; } = new List<SimpleTextBlock>{ new SimpleTextBlock() };
+}
