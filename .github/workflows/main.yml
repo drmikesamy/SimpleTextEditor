@@ -8,6 +8,8 @@ on:
 
 jobs:
   deploy-to-github-pages:
+    permissions:
+      id-token: write
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4.1.1
