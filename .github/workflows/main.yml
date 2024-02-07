@@ -27,7 +27,9 @@ jobs:
         base_href: BASE_URL or REPOSITORY_NAME
     - name: Add .nojekyll file
       run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
-    - name: Deploy GitHub Pages site
-      uses: actions/deploy-pages@v3
+    - name: Commit wwwroot to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
-        token: ${{ github.token }}
+        GITHUB_TOKEN: ${{ github.token }}
+        BRANCH: gh-pages
+        FOLDER: release/wwwroot
