@@ -1,0 +1,28 @@
+name: Deploy SimpleTextEditor Demo to GitHub Pages
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy-to-github-pages:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.1.1
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4.0.0
+      with:
+        dotnet-version: 8.x
+    - name: Publish .NET Core Project
+      run: dotnet publish SimpleTextEditor.Demo/SimpleTextEditor.Demo.csproj -c Release -o release --nologo
+    - name: Rewrite base href
+      if: success()
+      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+      with:
+        html_path: ${{ env.PUBLISH_DIR }}/index.html
+        base_href: BASE_URL or REPOSITORY_NAME
+    - name: Add .nojekyll file
+      run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
+    - name: Deploy GitHub Pages site
+      uses: actions/deploy-pages@v4.0.4
+      with:
+        token: ${{ github.token }}
