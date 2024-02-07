@@ -1,6 +1,6 @@
 name: Deploy SimpleTextEditor Demo to GitHub Pages
 env:
-  PUBLISH_DIR: bin/Release/net8.0/publish/wwwroot
+  PUBLISH_DIR: /home/runner/work/SimpleTextEditor/SimpleTextEditor/SimpleTextEditor.Demo/bin/Release/net8.0/wwwroot
 
 on:
   push:
