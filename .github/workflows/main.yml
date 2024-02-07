@@ -28,6 +28,6 @@ jobs:
     - name: Add .nojekyll file
       run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
     - name: Deploy GitHub Pages site
-      uses: actions/deploy-pages@v4.0.4
+      uses: actions/deploy-pages@v3
       with:
         token: ${{ github.token }}
