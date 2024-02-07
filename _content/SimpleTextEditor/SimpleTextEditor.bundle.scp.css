@@ -1,0 +1,46 @@
+/* _content/SimpleTextEditor/TextEditor.razor.rz.scp.css */
+.format-button-selected[b-xwhbetu2ac] {
+    background-color: grey;
+}
+.text-line[b-xwhbetu2ac] {
+    cursor: text;
+}
+.selection-highlight[b-xwhbetu2ac] {
+    background-color: greenyellow;
+}
+.text-cursor[b-xwhbetu2ac] {
+    display: inline-block;
+    width: 1px;
+    margin-left: -1px;
+    height: 1.3rem;
+    margin-bottom: -0.2rem;
+    background-color: black;
+    animation: cursor-blink-b-xwhbetu2ac 1s steps(1) infinite;
+    opacity: 0;
+}
+
+.rich-text-editor-container[b-xwhbetu2ac] {
+    padding: 0.5rem;
+    background-color: white;
+    border: 1px solid #ccc;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+@keyframes cursor-blink-b-xwhbetu2ac {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+p[b-xwhbetu2ac] {
+    min-height: 2rem;
+}
