@@ -1,4 +1,7 @@
 name: Deploy SimpleTextEditor Demo to GitHub Pages
+env:
+  PUBLISH_DIR: bin/Release/net8.0/publish/wwwroot
+
 on:
   push:
     branches: [ master ]
