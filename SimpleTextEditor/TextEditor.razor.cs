@@ -195,9 +195,9 @@ namespace SimpleTextEditor
 
 				for (var j = startChar; j <= endChar; j++)
 				{
-					if (i == _cursorSelectionState.StartBlock && j == _cursorSelectionState.StartChar)
+					if (i == _cursorSelectionState.StartBlock && j == startChar)
 					{
-						if ((Blocks[i].Characters[j].Format & formatFlag) == 0)
+						if ((Blocks[i].Characters[j < 0 ? 0 : j].Format & formatFlag) == 0)
 						{
 							flagAdded = true;
 						}
@@ -210,11 +210,11 @@ namespace SimpleTextEditor
 					{
 						if (flagAdded)
 						{
-							Blocks[i].Characters[j].Format |= formatFlag;
+							Blocks[i].Characters[j < 0 ? 0 : j].Format |= formatFlag;
 						}
 						else
 						{
-							Blocks[i].Characters[j].Format &= ~formatFlag;
+							Blocks[i].Characters[j < 0 ? 0 : j].Format &= ~formatFlag;
 						}
 					}
 				}

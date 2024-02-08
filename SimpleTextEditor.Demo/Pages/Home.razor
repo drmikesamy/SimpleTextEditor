@@ -1,8 +1,47 @@
 ﻿@page "/"
 @using SimpleTextEditor;
 @using SimpleTextEditor.Models
+@using SimpleTextEditor.Helpers
+@using System.Text.Json;
 
 <TextEditor @bind-Blocks="Content"></TextEditor>
-@code{
-public List<SimpleTextBlock> Content { get; set; } = new List<SimpleTextBlock>{ new SimpleTextBlock() };
+
+
+@if (!showDebug)
+{
+	<button @onclick="ToggleDebugBox">Show JSON</button>
+}else{
+	<div class="code-box">
+		<pre>
+			@(JsonSerializer.Serialize(Content, new JsonSerializerOptions() { WriteIndented = true }))
+				</pre>
+	</div>
+	<button @onclick="ToggleDebugBox">Hide JSON</button>
+}
+
+@if (!showHtml)
+{
+	<button @onclick="ToggleHtmlBox">Show HTML</button>
+
+}else{
+	<div class="code-box">
+		<pre>
+			@Content.ToHtml()
+		</pre>
+	</div>
+	<button @onclick="ToggleHtmlBox">Hide HTML</button>
+}
+
+@code {
+	public List<SimpleTextBlock> Content { get; set; } = new List<SimpleTextBlock> { new SimpleTextBlock() };
+	public bool showDebug { get; set; }
+	public bool showHtml { get; set; }
+	public void ToggleDebugBox()
+	{
+		showDebug = !showDebug;
+	}
+	public void ToggleHtmlBox()
+	{
+		showHtml = !showHtml;
+	}
 }
