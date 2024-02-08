@@ -1,10 +1,16 @@
 name: Deploy SimpleTextEditor Demo to GitHub Pages
+env:
+  PUBLISH_DIR: release/wwwroot
+
 on:
   push:
     branches: [ master ]
 
 jobs:
   deploy-to-github-pages:
+    permissions:
+      contents: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4.1.1
@@ -22,7 +28,9 @@ jobs:
         base_href: BASE_URL or REPOSITORY_NAME
     - name: Add .nojekyll file
       run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
-    - name: Deploy GitHub Pages site
-      uses: actions/deploy-pages@v4.0.4
+    - name: Commit wwwroot to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4.5.0
       with:
         token: ${{ github.token }}
+        branch: gh-pages
+        folder: release/wwwroot
