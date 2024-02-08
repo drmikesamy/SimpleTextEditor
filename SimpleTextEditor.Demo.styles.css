@@ -162,3 +162,9 @@ main[b-pc4vamg51i] {
         overflow-y: auto;
     }
 }
+/* /Pages/Home.razor.rz.scp.css */
+.code-box[b-tiokhsszut]{
+    border: 1px solid grey;
+    height: 300px;
+    overflow-y: scroll;
+}
