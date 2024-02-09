@@ -25,6 +25,7 @@
     border: 1px solid #ccc;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    caret-color: transparent;
 }
 
 @keyframes cursor-blink-b-xwhbetu2ac {
