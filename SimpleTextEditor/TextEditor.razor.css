@@ -25,6 +25,7 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
     caret-color: transparent;
+    user-select: none;
 }
 
 @keyframes cursor-blink {
