@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "SimpleTextEditor.Demo",
   "resources": {
-    "hash": "sha256-VNIcz0xfXFw5aw8oh5fph6rJ2wTg3omnZj25Gjw/JxU=",
+    "hash": "sha256-kzoKlvyUPFoz6Vg4+EuCxA3B8yDw/ZiNLPvP4KoY8XI=",
     "jsModuleNative": {
       "dotnet.native.8.0.1.ahpp78valh.js": "sha256-SGOlISx+3G4kkvpC9Uq3qoPGsnjxGmW61QBev0lyI5U="
     },
@@ -31,8 +31,8 @@
       "Microsoft.Extensions.Primitives.wasm": "sha256-6187ynEahDlSLMBvD4vAmiLpZ3clRb5xu6rM7O8AxNo=",
       "Microsoft.JSInterop.wasm": "sha256-lXwhdv0Is9FMH/j0+WH3zoNWAGLbVaONtGucJ/4URQ0=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-CQVLCKiSxLN5ghyJZG3mhnMGRROdqrbNUjtAXB0nWb8=",
-      "SimpleTextEditor.Demo.wasm": "sha256-UDZGe3yGF+I2Z+060uxX1K8Nei+Il3+liO/btVAD5bk=",
-      "SimpleTextEditor.wasm": "sha256-eprQO7a2yK6DKer7A+aiGWWyN0kfw8ADY/VoDRtyB2Y=",
+      "SimpleTextEditor.Demo.wasm": "sha256-B0/UkPuwCVecY0DZN4pwr/JUyLkNPI/bw6psg56ygVc=",
+      "SimpleTextEditor.wasm": "sha256-s/6vzcw5Q5liIUleJ2Kxke+AwBxjpfM1sCxcuenENVc=",
       "System.Collections.Concurrent.wasm": "sha256-j39an18DA43ACwHW2knErDgxsobJd8NzlHt3dlkqB2s=",
       "System.Collections.wasm": "sha256-lmlKFITqrkeIxTX4QNAc+VK4v56oJu/SDW8lRhqDtck=",
       "System.ComponentModel.wasm": "sha256-/6Kik6mC6ZHx8OXft116HbGv8VWDCF3oge/a6pf8jB8=",
