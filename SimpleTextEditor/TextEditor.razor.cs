@@ -24,6 +24,8 @@ namespace SimpleTextEditor
 		private bool bold { get; set; } = false;
 		private bool underline { get; set; } = false;
 		private bool italic { get; set; } = false;
+		private Timer? _timer { get; set; }
+		private bool longPressed { get; set; } = false;
 
 		protected override void OnInitialized()
 		{
@@ -122,9 +124,30 @@ namespace SimpleTextEditor
 			_cursorSelectionState.SetCursorPos(_cursorSelectionState.StartBlock, _cursorSelectionState.StartChar);
 
 		}
-
+		private void OnLongPress(int block, int index)
+		{
+			var selectionStart = index;
+			var selectionEnd = index;
+			while (Blocks[block].Characters[selectionStart].Content != " " && selectionStart > 0)
+			{
+				selectionStart--;
+			}
+			while (Blocks[block].Characters[selectionEnd].Content != " " && selectionEnd < Blocks[block].Characters.Count() - 2)
+			{
+				selectionEnd++;
+			}
+			_cursorSelectionState.SetCursorPos(block, selectionStart);
+			_cursorSelectionState.CursorBlock = block;
+			_cursorSelectionState.CursorChar = selectionEnd;
+			UpdateFormatButtons();
+			StateHasChanged();
+		}
 		private async Task SelectionStart(int block, int index)
 		{
+			if(_timer == null)
+			{
+				_timer = new Timer(e => OnLongPress(block, index), null, 1000, Timeout.Infinite);
+			}
 			Console.WriteLine($"Selection Start | CursorBlock: {_cursorSelectionState.CursorBlock}, CursorChar: {_cursorSelectionState.CursorChar}");
 			Focus();
 			isMouseDown = true;
@@ -132,6 +155,8 @@ namespace SimpleTextEditor
 		}
 		private async Task SelectionAdd(int block, int index)
 		{
+			_timer?.Dispose();
+			_timer = null;
 			Console.WriteLine($"Selection Add | CursorBlock: {_cursorSelectionState.CursorBlock}, CursorChar: {_cursorSelectionState.CursorChar}");
 			if (isMouseDown)
 			{
@@ -141,6 +166,8 @@ namespace SimpleTextEditor
 		}
 		public void SelectionEnd()
 		{
+			_timer?.Dispose();
+			_timer = null;
 			Console.WriteLine($"Selection End | CursorBlock: {_cursorSelectionState.CursorBlock}, CursorChar: {_cursorSelectionState.CursorChar}");
 			if (isMouseDown)
 			{
@@ -155,6 +182,8 @@ namespace SimpleTextEditor
 		}
 		public void LostFocus()
 		{
+			_timer?.Dispose();
+			_timer = null;
 			Console.WriteLine($"LostFocus | Block Index: {_blockIndex} CursorBlock: {_cursorSelectionState.CursorBlock}, CursorChar: {_cursorSelectionState.CursorChar}");
 			_focused = false;
 			_lastCharacterSelection = JsonSerializer.Deserialize<CursorSelectionState>(JsonSerializer.Serialize(_cursorSelectionState));
