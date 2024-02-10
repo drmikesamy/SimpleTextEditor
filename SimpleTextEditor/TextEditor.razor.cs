@@ -216,6 +216,10 @@ namespace SimpleTextEditor
 		{
 			Focus();
 			_cursorSelectionState = JsonSerializer.Deserialize<CursorSelectionState>(JsonSerializer.Serialize(_lastCharacterSelection));
+			if (!(_lastCharacterSelection.StartBlock != _lastCharacterSelection.EndBlock || _lastCharacterSelection.StartChar != _lastCharacterSelection.EndChar))
+			{
+				return;
+			}
 			var flagAdded = false;
 			for (var i = _cursorSelectionState.StartBlock; i <= _cursorSelectionState.EndBlock; i++)
 			{
